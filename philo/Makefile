@@ -15,10 +15,10 @@ SRC_OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(SRC_OBJ)
-	$(CC) $(FLAGS) $^ -o $@
+	$(CC) $(FLAGS) -g -pthread $^ -o $@
 
 %.o : %.c philosophers.h
-	$(CC) $(FLAGS) -c $< -o $@
+	$(CC) $(FLAGS) -g -pthread -c $< -o $@
 
 clean :
 	$(RM) $(SRC_OBJ)

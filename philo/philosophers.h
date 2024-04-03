@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/01 10:34:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/03 11:00:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 
 #include <stdio.h>
+#include <pthread.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>

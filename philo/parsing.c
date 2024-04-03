@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:07:46 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/02 13:27:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/03 11:06:24 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    parsing(int ac, char **av)
 
 	if (!numbers_check(av + 1))
 	{
-		printf("PARSER\n");
+		write(2, "PARSER\n", 7);
 		exit(1);
 	}
 	else
@@ -59,5 +59,6 @@ void    parsing(int ac, char **av)
 	printf("%d\n",philo.time_to_die);
 	printf("%d\n",philo.time_to_eat);
 	printf("%d\n",philo.time_to_sleep);
-	printf("%d\n",philo.meals);
+	if (ac == 6)
+		printf("%d\n",philo.meals);
 }
