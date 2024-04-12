@@ -2,7 +2,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
-int x = 0;
+// int x = 0;
 
 void    *f1(void *x)
 {
