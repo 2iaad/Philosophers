@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:07:46 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/03 11:06:24 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/13 17:14:06 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ bool 	numbers_check(char **av)
 	return (true);
 }
 
-void    parsing(int ac, char **av)
+void    parsing(int ac, char **av, t_philo *philo)
 {
-	t_philo	philo;
 
 	if (!numbers_check(av + 1))
 	{
@@ -48,17 +47,11 @@ void    parsing(int ac, char **av)
 	else
 		printf("NICE !!\n");
 
-	philo.n_philo = ft_atol(av[1]);
-	philo.time_to_die = ft_atol(av[2]);
-	philo.time_to_eat = ft_atol(av[3]);
-	philo.time_to_sleep = ft_atol(av[4]);
+	philo->n_philo = ft_atol(av[1]);
+	philo->forks = philo->n_philo;
+	philo->time_to_die = ft_atol(av[2]);
+	philo->time_to_eat = ft_atol(av[3]);
+	philo->time_to_sleep = ft_atol(av[4]);
 	if (ac == 6)
-		philo.meals = ft_atol(av[5]);
-
-	printf("%d\n",philo.n_philo);
-	printf("%d\n",philo.time_to_die);
-	printf("%d\n",philo.time_to_eat);
-	printf("%d\n",philo.time_to_sleep);
-	if (ac == 6)
-		printf("%d\n",philo.meals);
+		philo->meals = ft_atol(av[5]);
 }

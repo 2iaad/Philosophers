@@ -9,6 +9,7 @@ RM = rm -rf
 SRC =	main.c \
 		utils.c \
 		parsing.c \
+		philo_creation.c \
 
 SRC_OBJ = $(SRC:.c=.o)
 
