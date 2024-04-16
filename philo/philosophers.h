@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/13 17:26:53 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/16 17:36:25 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef struct s_philo
     int time_to_sleep; // The time a philosopher will spend sleeping
     int meals; // hadi bayna (optional)
     int i;
+    bool flag;
     pthread_mutex_t   mutex;
+    struct timeval  time;
 }   t_philo;
 
 int     ft_atol(char *s);
