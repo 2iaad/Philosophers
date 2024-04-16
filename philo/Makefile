@@ -10,6 +10,7 @@ SRC =	main.c \
 		utils.c \
 		parsing.c \
 		philo_creation.c \
+		philo_actions.c \
 
 SRC_OBJ = $(SRC:.c=.o)
 

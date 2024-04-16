@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/16 17:34:58 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:18:34 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void *f(void *philo)
     tmp = (t_philo *)philo;
     gettimeofday(&tmp->time, NULL);
     pthread_mutex_lock(&tmp->mutex);
-
+    die(tmp);
+    eat(tmp);
+    to_sleep(tmp);
     printf("%d  hello in thread number: %d!\n",tmp->time.tv_usec, tmp->i);
     tmp->i++;
 
