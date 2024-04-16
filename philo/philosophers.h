@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/16 18:19:35 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:24:58 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void    create_philo(t_philo *philo);
 void    die(t_philo *philo);
 void    eat(t_philo *philo);
 void    to_sleep(t_philo *philo);
+void    think(t_philo *philo);
 
 # endif
