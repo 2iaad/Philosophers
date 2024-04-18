@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/16 18:24:58 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:14:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PHILOSOPHERS_H
 
 #include <stdio.h>
-#include <pthread.h>
+#include <pthread.h> // contain all functions that control threads and mutexes
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdbool.h>

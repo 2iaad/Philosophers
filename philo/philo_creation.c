@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/16 18:23:15 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:19:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,23 @@ void *f(void *philo)
     t_philo *tmp;
     
     tmp = (t_philo *)philo;
-    gettimeofday(&tmp->time, NULL);
     pthread_mutex_lock(&tmp->mutex);
-    die(tmp);
-    eat(tmp);
+    if (tmp->forks >= 2 && tmp->flag == false)
+        eat(tmp);
+    think(tmp);
     to_sleep(tmp);
-    // printf("%d  hello in thread number: %d!\n",tmp->time.tv_usec, tmp->i);
+    die(tmp);
+
     tmp->i++;
 
     pthread_mutex_unlock(&tmp->mutex);
     return (NULL);
+}
+
+void    init_data(t_philo *philo)
+{
+    gettimeofday(&philo->time, NULL);
+    
 }
 
 void    create_philo(t_philo *philo)
@@ -38,6 +45,7 @@ void    create_philo(t_philo *philo)
 
     i = 0;
     philo->i = 1;
+    init_data(philo);
     pthread_mutex_init(&philo->mutex, NULL);
     while (i < philo->n_philo)
     {
