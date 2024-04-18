@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/18 15:19:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/18 15:52:20 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void *f(void *philo)
     
     tmp = (t_philo *)philo;
     pthread_mutex_lock(&tmp->mutex);
-    if (tmp->forks >= 2 && tmp->flag == false)
+
+    if (tmp->forks >= 2 && tmp->i % 2 != 0)
         eat(tmp);
     think(tmp);
     to_sleep(tmp);
     die(tmp);
-
     tmp->i++;
 
     pthread_mutex_unlock(&tmp->mutex);
