@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc
 
-FLAGS = 
+FLAGS = -fsanitize=address
 
 RM = rm -rf
 

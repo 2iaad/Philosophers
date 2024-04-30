@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/30 02:16:39 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:31:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@
 typedef struct s_philo
 {
     int id;
-    int last_meal; // time passed from last meal
-    pthread_t i;
-    bool death_flag;
     int r_fork;
     int l_fork;
+    int last_meal; // time passed from last meal
+    bool death_flag;
+    pthread_t i;
 }   t_philo;
 
 typedef struct s_table
@@ -38,9 +38,9 @@ typedef struct s_table
     int time_to_sleep; // The time a philosopher will spend sleeping
     int n_meals; // hadi bayna (optional)
     struct timeval tod;
-    int *forks;
-    t_philo philo[];
-%>   t_table;
+    int     *forks;
+    t_philo *philo;
+%>      t_table;
 
 int     ft_atol(char *s);
 void    parsing(int ac, char **av, t_table *table);

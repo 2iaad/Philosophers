@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/30 20:13:54 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:29:38 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,8 @@ void	assign_forks(t_table *table)
 
 	i = -1;
 	table->forks = (int *) malloc(sizeof(int) * table->n_philos);
-	printf("id------------------------->%d\n",table->philo[0].id);
 	while (++i < table->n_philos)
 		table->forks[i] = i;
-	printf("id------------------------->%d\n",table->philo[0].id);
-	// printf("id------------------------->%d\n",table->philo[1].id);
-	// printf("id------------------------->%d\n",table->philo[2].id);
-	// printf("id------------------------->%d\n",table->philo[3].id);
 	// while (++i < table->n_philos)
 	// {
 	// 	table->philo[i].r_fork = table->philo[i].id;
@@ -59,6 +54,7 @@ void    init_data(t_table *table, int ac, char **av)
 	if (ac == 6)
 		table->n_meals = ft_atol(av[5]);
 	gettimeofday(&table->tod, NULL);
+	table->philo = malloc(sizeof(t_philo) * table->n_philos);
 	i = 0;
 	while (i < table->n_philos)
 	{
@@ -67,18 +63,18 @@ void    init_data(t_table *table, int ac, char **av)
 		i++;
 	}
 	/*							printing 							*/
-	// i = 0;
-	// printf("%d\n",table->time_to_die);
-	// printf("%d\n",table->time_to_eat);
-	// printf("%d\n",table->time_to_sleep);
-	// if (ac == 6)
-	// 	printf("n_meals:%d\n",table->n_meals);
-	// printf("time_of_day: %d\n",table->tod.tv_usec);
-	// while (i < table->n_philos)
-	// {
-	// 	printf("id:%d\n",table->philo[i].id);
-	// 	printf("death flag: %s\n", table->philo[i].death_flag ? "true" : "false");
-	// 	i++;
-	// }
+	i = 0;
+	printf("%d\n",table->time_to_die);
+	printf("%d\n",table->time_to_eat);
+	printf("%d\n",table->time_to_sleep);
+	if (ac == 6)
+		printf("n_meals:%d\n",table->n_meals);
+	printf("time_of_day: %d\n",table->tod.tv_usec);
+	while (i < table->n_philos)
+	{
+		printf("id:%d\n",table->philo[i].id);
+		printf("death flag: %s\n", table->philo[i].death_flag ? "true" : "false");
+		i++;
+	}
 	assign_forks(table);
 }
