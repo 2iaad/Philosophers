@@ -6,13 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 06:59:47 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/14 15:17:53 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/22 21:14:57 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-// create the thread , and join them in a loop
 
 void fff()
 {
@@ -21,22 +19,19 @@ void fff()
 
 int main(int ac, char **av)
 {
-    t_philo	*philo;
+    t_table *table;
 
-    // atexit(fff);
-    philo = malloc (sizeof(t_philo));
+    table = malloc (sizeof(t_table));
     if (ac == 5 || ac == 6)
     {
-        parsing(ac, av, philo);
-        create_philo(philo);
-    
-        free(philo);
-        // printf("%d\n",philo->n_philo);
-        // printf("%d\n",philo->time_to_die);
-        // printf("%d\n",philo->time_to_eat);
-        // printf("%d\n",philo->time_to_sleep);
-        // if (ac == 6)
-        // 	printf("%d\n",philo->meals);
+        parsing(ac, av, table);
+        init_data(table, ac, av);
+
+        // printf("%d\n",table->n_table);
+        // printf("%d\n",table->forks);
+        // printf("%d\n",table->time_to_die);
+        // printf("%d\n",table->time_to_eat);
+        // printf("%d\n",table->time_to_sleep);
     }
     else
         printf("Wrong number of arguments\n");
