@@ -6,17 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/30 23:29:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/01 01:51:11 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <sys/time.h>
-
-void	timeofday(t_table *table)
-{
-	gettimeofday(&table->tod, NULL);
-}
 
 void	assign_forks(t_table *table)
 {
@@ -32,15 +27,10 @@ void	assign_forks(t_table *table)
 	// 	table->philo[i].l_fork = (table->philo[i].id - 1) % table->n_philos;
 	// }
 	/* 				printing 				*/
-	// i = -1;
-	// while (++i < table->n_philos)
-	// 	 printf("%d----",table->forks[i]);
-	// printf("\n\n");
-	// i = -1;
-// 	while (++i < table->n_philos)
-// 	{
-// 		printf("philo %d got this forks:%d-----%d\n", table->philo[i].id, table->philo[i].r_fork, table->philo[i].l_fork);
-// 	}
+	i = -1;
+	while (++i < table->n_philos)
+		 printf("%d----",table->forks[i]);
+	printf("\n\n");
 }
 
 void    init_data(t_table *table, int ac, char **av)
@@ -63,13 +53,13 @@ void    init_data(t_table *table, int ac, char **av)
 		i++;
 	}
 	/*							printing 							*/
-	i = 0;
 	printf("%d\n",table->time_to_die);
 	printf("%d\n",table->time_to_eat);
 	printf("%d\n",table->time_to_sleep);
 	if (ac == 6)
 		printf("n_meals:%d\n",table->n_meals);
 	printf("time_of_day: %d\n",table->tod.tv_usec);
+	i = 0;
 	while (i < table->n_philos)
 	{
 		printf("id:%d\n",table->philo[i].id);

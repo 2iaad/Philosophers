@@ -6,13 +6,14 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/30 23:31:10 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/04/30 23:36:01 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+#include <sys/_pthread/_pthread_mutex_t.h>
 #include <time.h>
 #include <stdio.h>
 #include <pthread.h> // contain all functions that control threads and mutexes
@@ -23,10 +24,10 @@
 typedef struct s_philo
 {
     int id;
-    int r_fork;
-    int l_fork;
     int last_meal; // time passed from last meal
     bool death_flag;
+    pthread_mutex_t r_fork;
+    pthread_mutex_t l_fork;
     pthread_t i;
 }   t_philo;
 
