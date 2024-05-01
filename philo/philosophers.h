@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/30 23:36:01 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/01 01:54:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_philo
     bool death_flag;
     pthread_mutex_t r_fork;
     pthread_mutex_t l_fork;
-    pthread_t i;
+    pthread_t th;
 }   t_philo;
 
 typedef struct s_table

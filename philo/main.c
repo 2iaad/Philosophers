@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 06:59:47 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/22 21:14:57 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/01 02:14:24 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void fff()
     system("leaks philo");
 }
 
+/*      time to create the philos       */
+
 int main(int ac, char **av)
 {
     t_table *table;
@@ -26,12 +28,8 @@ int main(int ac, char **av)
     {
         parsing(ac, av, table);
         init_data(table, ac, av);
+        // create_philo(table);
 
-        // printf("%d\n",table->n_table);
-        // printf("%d\n",table->forks);
-        // printf("%d\n",table->time_to_die);
-        // printf("%d\n",table->time_to_eat);
-        // printf("%d\n",table->time_to_sleep);
     }
     else
         printf("Wrong number of arguments\n");
