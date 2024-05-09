@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/05/01 01:54:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/05/01 16:35:52 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_table
     int n_meals; // hadi bayna (optional)
     struct timeval tod;
     int     *forks;
-    t_philo *philo;
+    t_philo philo;
 %>      t_table;
 
 int     ft_atol(char *s);
