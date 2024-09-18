@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/19 00:31:55 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/19 00:42:55 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void    create_philo(t_table *table)
     int i;
 
     i = 0;
-    // pthread_mutex_init(&philo->mutex, NULL);
+	mutex_init(table);
 	printf("\n\n");
     while (table->philo[i].id != 1337)
     {
@@ -60,5 +60,5 @@ void    create_philo(t_table *table)
         pthread_join(table->philo[i].th, NULL);
         i++;
     }
-    // pthread_mutex_destroy(&philo->mutex);
+	mutex_destroy(table);
 }
