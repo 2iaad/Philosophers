@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/12 17:48:19 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/19 00:30:46 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILOSOPHERS_H
 
 #include <sys/_pthread/_pthread_mutex_t.h>
+#include <sys/_pthread/_pthread_t.h>
 #include <time.h>
 #include <sys/time.h>
 #include <stdio.h>
@@ -24,10 +25,12 @@
 
 typedef struct s_philo
 {
-    int				id;
-    int				last_meal; // time passed from last meal
-    bool			death_flag;
     pthread_t		th;
+    int				id;
+	int				philo_num;
+    bool			death_flag;
+    pthread_mutex_t	*l_fork;
+    pthread_mutex_t	*r_fork;
 }		t_philo;
 
 typedef struct s_table
@@ -37,8 +40,7 @@ typedef struct s_table
     int				time_to_eat; // time li yakhod lphilo bach ysali lmakla, atkoun khasah 2 forks
     int				time_to_sleep; // The time a philosopher will spend sleeping
     int				n_meals;
-    struct timeval	tod;
-    pthread_mutex_t	*fork;
+	pthread_mutex_t	*forks;
     t_philo			*philo;
 %>      t_table;
 
