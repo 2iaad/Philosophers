@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/19 00:36:21 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/19 00:54:09 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void    init_data(t_table *table, int ac, char **av)
 	table->philo = malloc(sizeof(t_philo) * (table->n_philos + 1)); // kanalloci lkola philo struct deyalo
 	while (i < table->n_philos) // kaninitialisi struct deyal philos
 	{
-		table->philo[i].philo_num = i;
 		table->philo[i].id = i + 1;
 		printf("{%d}\n", table->philo[i].id);
 		table->philo[i].death_flag = false;

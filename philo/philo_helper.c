@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/19 00:43:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/19 00:50:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@ void	mutex_init(t_table *table)
 		pthread_mutex_init(&table->philo->r_fork, NULL);
 		i++;
 	}
+}
+
+void	mutex_lock(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->l_fork);
+	pthread_mutex_lock(&philo->r_fork);
+}
+
+void	mutex_unlock(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->l_fork);
+	pthread_mutex_lock(&philo->r_fork);
 }
 
 void	mutex_destroy(t_table *table)
