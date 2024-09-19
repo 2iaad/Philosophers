@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/19 00:53:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/19 23:59:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,10 @@ void *f(void *table)
 {
 	static int a;
     t_table *tmp;
-    
+
     tmp = (t_table *)table;
 	mutex_lock(&tmp->philo[a]);
 
-/*
-		hna fin khasni neati spagetti dzp
-*/
 	printf("im thread number:{%d}\n", tmp->philo[a].id);
 	a++;
 

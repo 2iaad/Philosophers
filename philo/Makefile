@@ -12,7 +12,7 @@ SRC =	main.c \
 		philo_init.c \
 		philo_creation.c \
 		philo_helper.c \
-		# philo_actions.c \
+		philo_actions.c \
 
 SRC_OBJ = $(SRC:.c=.o)
 

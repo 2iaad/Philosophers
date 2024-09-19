@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/19 00:53:19 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/19 22:07:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ typedef struct s_table
 %>      t_table;
 
 int     ft_atol(char *s);
+size_t	get_current_time(void);
+int		ft_usleep(size_t milliseconds);
+
 void	mutex_init(t_table *table);
 void	mutex_lock(t_philo *philo);
 void	mutex_unlock(t_philo *philo);
 void	mutex_destroy(t_table *table);
+
 void    parsing(int ac, char **av, t_table *table);
 void    init_data(t_table *table, int ac, char **av);
 void    create_philo(t_table *table);

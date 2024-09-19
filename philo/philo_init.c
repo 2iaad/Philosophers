@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/19 00:54:09 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:46:38 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	assign_forks(t_table *table)
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->n_philos);
 	while (i < table->n_philos)
 	{
-		table->philo[i].r_fork = table->forks[i];
-		table->philo[i].l_fork = (table->forks[(table->philo[i].id - 1) % table->n_philos]);
+		table->philo[i].r_fork = table->forks[table->philo[i].id - 1]; // id - 1 bach philo 1 ykon ando fork 0
+		table->philo[i].l_fork = (table->forks[((table->philo[i].id - 1) + 1) 
+			% table->n_philos]); // (position deyal philo + 1) % 3adad d philos
 		i++;
 	}
 }
