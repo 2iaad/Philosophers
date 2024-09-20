@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/20 18:29:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:16:32 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philo
     pthread_t		th;
     int				id;
 	int				pos;
+	int				meals_eaten;
     bool			death_flag;
     pthread_mutex_t	l_fork;
     pthread_mutex_t	r_fork;
@@ -35,14 +36,14 @@ typedef struct s_philo
 }		t_philo;
 
 typedef struct s_table
-<%
+{
     int				n_philos; // also number of forks
     int				time_to_die; // time li yqdr lphilo ytsna mn last meal ola last simulation deyalo
     int				time_to_eat; // time li yakhod lphilo bach ysali lmakla, atkoun khasah 2 forks
     int				time_to_sleep; // The time a philosopher will spend sleeping
     int				n_meals;
 	pthread_mutex_t	*forks;
-%>      t_table;
+}		t_table;
 
 int     ft_atol(char *s);
 size_t	get_current_time(void);
@@ -60,7 +61,7 @@ void    create_philo(t_philo *philo);
 /*         ACTIONS           */
 
 void    die(t_table *table);
-void    eat(t_table *table);
+void    eat(t_philo *philo);
 void    to_sleep(t_table *table);
 void    think(t_table *table);
 

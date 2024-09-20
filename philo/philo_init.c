@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/20 18:43:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/20 20:52:37 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void    init_data(t_table *table, int ac, char **av)
 	{
 		philos[i].id = i + 1;
 		philos[i].pos = i;
+		philos[i].meals_eaten = 0;
 		philos[i].table = table;
 		i++;
 	}

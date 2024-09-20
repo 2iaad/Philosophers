@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:56:27 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/19 23:17:30 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/20 22:09:26 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,16 @@ ps: 1 milliseconds ===== 1000 microseconds //// ---> usleep(x * 1000);
 
 
 
-void    eat(t_table *table)
+void    eat(t_philo *philo)
 {
-	// mutex_lock(table->philo);
-	// printf("%ld %d has taken a fork\n",get_current_time(), table->philo[0].id);
+	// mutex_lock(philo);
+	printf("%ld %d has taken a fork\n",get_current_time(), philo[0].id);
+	printf("%ld %d has taken a fork\n",get_current_time(), philo[0].id);
 
 	
-	// printf("%ld %d is eating\n",get_current_time(), table->philo[0].id);
-	// ft_usleep(table->time_to_eat);
+	printf("%ld %d is eating\n",get_current_time(), philo[0].id);
+	// mutex_unlock(philo);
+	ft_usleep(philo->table->time_to_eat);
 }
 
 // void    think(t_table *table)
@@ -43,4 +45,20 @@ void    eat(t_table *table)
 //     while (usleep(philo->time_to_sleep * 1000))
 //         ;
 //     printf("%d %d is sleeping\n",philo->time.tv_usec, philo->i);
+// }
+
+
+// void    *die_checker(void	*table)
+// {
+// 	t_table *tmp;
+// 	int i = 0;
+
+// 	tmp = (t_table *)table;
+// 	while (tmp->philo[i].id != 42)
+// 	{
+// 		if (tmp->philo->death_flag)
+// 			printf("%d %d died\n",tmp->tod.tv_usec, tmp->philo->id);
+// 		i++;
+// 	}
+// 	return (NULL);
 // }
