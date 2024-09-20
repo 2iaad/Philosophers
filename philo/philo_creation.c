@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/19 23:59:22 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/20 18:46:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,38 +27,39 @@
 // 	return (NULL);
 // }
 
-void *f(void *table)
+
+
+void	*f(void *philo)
 {
-	static int a;
-    t_table *tmp;
+	int i;
+    t_philo *tmp;
 
-    tmp = (t_table *)table;
-	mutex_lock(&tmp->philo[a]);
-
-	printf("im thread number:{%d}\n", tmp->philo[a].id);
-	a++;
-
-    mutex_unlock(&tmp->philo[a]);
+	i = 0;
+	tmp = (t_philo *)philo;
+	while (tmp[i].id != 1337)
+	{
+		printf("{%d}", tmp[i].id);
+		i++;
+	}
+	printf("\n\n");
     return (NULL);
 }
 
-void    create_philo(t_table *table)
+void    create_philo(t_philo *philo)
 {
     int i;
 
     i = 0;
-	mutex_init(table);
-	printf("\n\n");
-    while (table->philo[i].id != 1337)
+    while (philo[i].id != 1337)
     {
-        pthread_create(&table->philo[i].th, NULL, &f, table);
+        pthread_create(&philo[i].th, NULL, &f, philo);
         i++;
     }
     i = 0;
-    while (table->philo[i].id != 1337)
+    while (philo[i].id != 1337)
     {
-        pthread_join(table->philo[i].th, NULL);
+        pthread_join(philo[i].th, NULL);
         i++;
     }
-	mutex_destroy(table);
+	mutex_destroy(philo);
 }
