@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/20 20:52:37 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:55:51 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ void    init_data(t_table *table, int ac, char **av)
 	table->time_to_sleep = ft_atol(av[4]);
 	if (ac == 6)
 		table->n_meals = ft_atol(av[5]);
-	philos = malloc(sizeof(t_philo) * (table->n_philos + 1)); // kanalloci lkola philo struct deyalo
+	if (table->n_philos <= 0 && table->n_philos > 200 || table->time_to_die < 0
+	|| table->time_to_eat < 0 || table->time_to_sleep < 0)
+		return (write(2, "Invalide input\n", 26));
+
+	philos = malloc(sizeof(t_philo) * (table->n_philos + 1));
 	while (i < table->n_philos)
 	{
 		philos[i].id = i + 1;

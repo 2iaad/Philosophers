@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:56:27 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/20 22:09:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/21 17:06:48 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,7 @@ ps: 1 milliseconds ===== 1000 microseconds //// ---> usleep(x * 1000);
 
 void    eat(t_philo *philo)
 {
-	// mutex_lock(philo);
-	printf("%ld %d has taken a fork\n",get_current_time(), philo[0].id);
-	printf("%ld %d has taken a fork\n",get_current_time(), philo[0].id);
-
-	
+	// mutex_lock(philo);	
 	printf("%ld %d is eating\n",get_current_time(), philo[0].id);
 	// mutex_unlock(philo);
 	ft_usleep(philo->table->time_to_eat);
