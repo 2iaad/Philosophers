@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/20 22:16:32 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/22 22:59:49 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,18 @@ typedef struct s_philo
 {
     pthread_t		th;
     int				id;
-	int				pos;
 	int				meals_eaten;
     bool			death_flag;
-    pthread_mutex_t	l_fork;
-    pthread_mutex_t	r_fork;
+	size_t			last_meal;
+    pthread_mutex_t	*l_fork;
+    pthread_mutex_t	*r_fork;
 	struct	s_table	*table;
 }		t_philo;
 
 typedef struct s_table
 {
+	pthread_t		guard;
+	size_t			start_time;
     int				n_philos; // also number of forks
     int				time_to_die; // time li yqdr lphilo ytsna mn last meal ola last simulation deyalo
     int				time_to_eat; // time li yakhod lphilo bach ysali lmakla, atkoun khasah 2 forks
@@ -46,6 +48,7 @@ typedef struct s_table
 }		t_table;
 
 int     ft_atol(char *s);
+void	print(t_philo *philo, char *str);
 size_t	get_current_time(void);
 int		ft_usleep(size_t milliseconds);
 
@@ -55,14 +58,14 @@ void	mutex_unlock(t_philo *philo);
 void	mutex_destroy(t_philo *philo);
 
 void    parsing(int ac, char **av, t_table *table);
-void    init_data(t_table *table, int ac, char **av);
+t_philo	*init_data(t_table *table, int ac, char **av);
 void    create_philo(t_philo *philo);
 
 /*         ACTIONS           */
 
 void    die(t_table *table);
 void    eat(t_philo *philo);
-void    to_sleep(t_table *table);
+void    to_sleep(t_philo *philo);
 void    think(t_table *table);
 
 # endif
