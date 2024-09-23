@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 12:05:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:29:53 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void    *death_checker(void	*philo)
 			if (get_current_time() - tmp[i].last_meal > tmp->table->time_to_die) // wach chi philo starva?
 			{
 				tmp[i].death_flag = true;
-				printf("-----------------> PHILO:%d IS DEAAAAD\n", tmp[i].id);
+				tmp->table->death_flag = true;
+				printf("-----------------> PHILO:%d IS DEAD\n", tmp[i].id);
 				return (NULL);
 			}
 			i++;
@@ -42,7 +43,7 @@ void	*f(void *philo)
 
 	i = 0;
 	ptr = (t_philo *)philo;
-	while (!ptr->death_flag)
+	while (!ptr->table->death_flag)
 	{
 		eat(ptr);
 		to_sleep(ptr);

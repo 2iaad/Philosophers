@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 11:02:49 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:28:02 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_table
     int				time_to_eat; // time li yakhod lphilo bach ysali lmakla, atkoun khasah 2 forks
     int				time_to_sleep; // The time a philosopher will spend sleeping
     int				n_meals;
+	bool			death_flag;
 	pthread_mutex_t	*forks;
 }		t_table;
 
@@ -53,8 +54,8 @@ size_t	get_current_time(void);
 int		ft_usleep(size_t milliseconds);
 
 void	mutex_init(t_philo *philo);
-void	mutex_lock(t_philo *philo);
-void	mutex_unlock(t_philo *philo);
+void	forks_lock(t_philo *philo);
+void	forks_unlock(t_philo *philo);
 void	mutex_destroy(t_philo *philo);
 
 void    parsing(int ac, char **av);

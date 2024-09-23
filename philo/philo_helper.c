@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 11:21:11 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:28:45 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	mutex_init(t_philo *philo)
 	}
 }
 
-void	mutex_lock(t_philo *philo)
+void	forks_lock(t_philo *philo)
 {
 	pthread_mutex_lock(philo->r_fork);
 	print(philo, "has taken a fork");
@@ -32,7 +32,7 @@ void	mutex_lock(t_philo *philo)
 	print(philo, "has taken a fork");
 }
 
-void	mutex_unlock(t_philo *philo)
+void	forks_unlock(t_philo *philo)
 {
 	pthread_mutex_unlock(philo->r_fork);
 	pthread_mutex_unlock(philo->l_fork);

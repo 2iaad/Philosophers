@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 11:13:16 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:02:26 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_table(t_table *table, int ac, char **av)
 {	
 	table->start_time = get_current_time();
 	table->n_philos = ft_atol(av[1]);
+	table->death_flag = false;
 	table->time_to_die = ft_atol(av[2]);
 	table->time_to_eat = ft_atol(av[3]);
 	table->time_to_sleep = ft_atol(av[4]);
