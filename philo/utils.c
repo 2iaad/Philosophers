@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:56:50 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 13:23:24 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:23:25 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	print(t_philo *philo, char *str)
 	size_t gct;
 	pthread_mutex_t locker;
 
-	if (philo->death_flag || philo->meals_eaten == philo->table->n_meals)
+	if (philo->table->death_flag || philo->meals_eaten == philo->table->n_meals)
 		return ;
 
 	pthread_mutex_init(&locker, NULL);

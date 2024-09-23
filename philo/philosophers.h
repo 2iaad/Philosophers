@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 13:28:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 18:24:24 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ typedef struct s_philo
     pthread_t		th;
     int				id;
 	int				meals_eaten;
-    bool			death_flag;
 	size_t			last_meal;
     pthread_mutex_t	*l_fork;
     pthread_mutex_t	*r_fork;
