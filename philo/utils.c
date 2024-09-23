@@ -6,13 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:56:50 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/22 23:00:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:06:14 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <pthread.h>
-#include <sys/_pthread/_pthread_mutex_t.h>
 
 int ft_atol(char *s)
 {

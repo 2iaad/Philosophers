@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/22 22:59:49 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 11:02:49 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	mutex_lock(t_philo *philo);
 void	mutex_unlock(t_philo *philo);
 void	mutex_destroy(t_philo *philo);
 
-void    parsing(int ac, char **av, t_table *table);
-t_philo	*init_data(t_table *table, int ac, char **av);
+void    parsing(int ac, char **av);
+void	init_data(int ac, char **av, t_philo **philo);
 void    create_philo(t_philo *philo);
 
 /*         ACTIONS           */

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:07:46 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/04/20 23:19:28 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 10:57:51 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool 	numbers_check(char **av)
 	return (true);
 }
 
-void    parsing(int ac, char **av, t_table	*table)
+void    parsing(int ac, char **av)
 {
 
 	if (!numbers_check(av + 1))

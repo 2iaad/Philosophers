@@ -6,12 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/22 22:55:46 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/23 12:05:38 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <stdio.h>
 
 void    *death_checker(void	*philo)
 {
@@ -21,36 +20,34 @@ void    *death_checker(void	*philo)
 	tmp = (t_philo *)philo;
 	while (1)
 	{
-		if (get_current_time() - tmp->last_meal > tmp->table->time_to_die) // hna kanchecki 3la wach chi philo starva ola la
-		{	
-			printf("DEAD");
-			break ;
-		}
 		i = 0;
-		while (i < tmp->table->n_meals)
+		while (i < tmp->table->n_philos)
 		{
-			if (tmp[i].death_flag)
-				printf("DEAD");
+			if (get_current_time() - tmp[i].last_meal > tmp->table->time_to_die) // wach chi philo starva?
+			{
+				tmp[i].death_flag = true;
+				printf("-----------------> PHILO:%d IS DEAAAAD\n", tmp[i].id);
+				return (NULL);
+			}
 			i++;
 		}
 	}
 	return (NULL);
 }
-// fun katprinti bla data race
 
 void	*f(void *philo)
 {
 	int i;
-    t_philo *tmp;
+    t_philo *ptr;
 
 	i = 0;
-	tmp = (t_philo *)philo;
-	while (1)
+	ptr = (t_philo *)philo;
+	while (!ptr->death_flag)
 	{
-		eat(tmp);
-		to_sleep(tmp);
-		print(tmp, "is thinking");
-		if (tmp->meals_eaten >= tmp->table->n_meals)
+		eat(ptr);
+		to_sleep(ptr);
+		print(ptr, "is thinking");
+		if (ptr->meals_eaten >= ptr->table->n_meals)
 			break ;
 	}
     return (NULL);
@@ -61,7 +58,7 @@ void    create_philo(t_philo *philo)
     int i;
 
     i = 0;
-	// pthread_create(&philo->table->guard, NULL, &death_checker, philo);
+	pthread_create(&philo->table->guard, NULL, &death_checker, philo);
     while (philo[i].id != 1337)
     {
         pthread_create(&philo[i].th, NULL, &f, &philo[i]);
@@ -73,6 +70,6 @@ void    create_philo(t_philo *philo)
         pthread_join(philo[i].th, NULL);
         i++;
     }
-	// pthread_join(philo->table->guard, NULL);
+	pthread_join(philo->table->guard, NULL);
 	mutex_destroy(philo);
 }
