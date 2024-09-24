@@ -2,7 +2,7 @@ NAME = philo
 
 CC = cc
 
-FLAGS = -fsanitize=thread
+FLAGS = -fsanitize=thread -g
 
 RM = rm -rf
 
@@ -19,13 +19,15 @@ SRC_OBJ = $(SRC:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(SRC_OBJ)
-	$(CC) $(FLAGS) -g  $^ -o $@
+	$(CC) $(FLAGS) $^ -o $@
 
 %.o : %.c philosophers.h
-	$(CC) $(FLAGS) -g  -c $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean :
 	$(RM) $(SRC_OBJ)
 
 fclean : clean
 	$(RM) $(NAME)
+
+re : fclean all 

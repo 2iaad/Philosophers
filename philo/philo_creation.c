@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 18:24:14 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/24 17:16:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,34 @@
 void    *death_checker(void	*philo)
 {
 	t_philo *tmp;
-	int i = 0;
 
+	int i = 0;
 	tmp = (t_philo *)philo;
 	while (1)
 	{
 		i = 0;
 		while (i < tmp->table->n_philos)
 		{
-			if (get_current_time() - tmp[i].last_meal > tmp->table->time_to_die) // wach chi philo starva?
+			// lock
+			pthread_mutex_lock(&tmp->table->read);
+			if (get_current_time() - tmp[i].last_meal > tmp->table->time_to_die)
 			{
+				pthread_mutex_unlock(&tmp->table->read);
+				// unlock
 				print(&tmp[i], "died");
+				pthread_mutex_lock(&tmp->table->write);
 				tmp->table->death_flag = true;
+				pthread_mutex_unlock(&tmp->table->write);
 				return (NULL);
 			}
+			else
+				pthread_mutex_unlock(&tmp->table->read);
+			// unlock
 			i++;
 		}
 	}
 	return (NULL);
 }
-
-//check imediatly with a mutex in the print func
-// and do a flag in the print fun if its dead i should return from the routine function
 
 void	*f(void *philo)
 {

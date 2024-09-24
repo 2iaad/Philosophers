@@ -14,6 +14,8 @@ void    *f(void *i)
     {
         pthread_mutex_lock(&mutex);
         (*(int *)i)++;
+		if ((*(int *)i) == 289733)
+			(*(int *)i)++;
         pthread_mutex_unlock(&mutex);
     }
     return(NULL);

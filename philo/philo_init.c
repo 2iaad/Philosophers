@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 13:02:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/24 16:54:38 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	init_table(t_table *table, int ac, char **av)
 	table->time_to_sleep = ft_atol(av[4]);
 	if (ac == 6)
 		table->n_meals = ft_atol(av[5]);
+	pthread_mutex_init(&table->read,NULL);
+	pthread_mutex_init(&table->write,NULL);
 	if (table->n_philos <= 0 && table->n_philos > 200 || table->time_to_die < 0
 	|| table->time_to_eat < 0 || table->time_to_sleep < 0)
 		return ((void)write(2, "Invalide input\n", 26));
