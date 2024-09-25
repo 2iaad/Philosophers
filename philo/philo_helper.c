@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/25 16:14:01 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:24:23 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 void	forks_lock(t_philo *philo)
 {
-	pthread_mutex_lock(philo->r_fork);
-	print(philo, "has taken a fork");
+	if (philo->table->n_philos != 1)
+	{
+		pthread_mutex_lock(philo->r_fork);
+		print(philo, "has taken a fork");
+	}
 	pthread_mutex_lock(philo->l_fork);
 	print(philo, "has taken a fork");
 }
