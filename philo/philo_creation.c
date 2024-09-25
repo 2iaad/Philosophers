@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/25 16:09:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:12:02 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void    *death_checker(void	*philo)
 				pthread_mutex_unlock(&tmp->table->last_meal_m);
 				// unlock
 				print(&tmp[i], "died");
-				// pthread_mutex_lock(&tmp->table->death_m);
+				pthread_mutex_lock(&tmp->table->death_m);
 				tmp->table->death_flag = true;
-				// pthread_mutex_unlock(&tmp->table->death_m);
+				pthread_mutex_unlock(&tmp->table->death_m);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&tmp->table->last_meal_m);
