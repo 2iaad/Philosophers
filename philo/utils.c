@@ -6,28 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:56:50 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/24 16:53:46 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/25 12:17:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-
-void	print(t_philo *philo, char *str)
-{
-	size_t gct;
-	pthread_mutex_t locker;
-
-	pthread_mutex_init(&locker, NULL);
-	pthread_mutex_lock(&locker);
-
-	if (philo->table->death_flag || philo->meals_eaten == philo->table->n_meals)
-		return ;
-	gct = get_current_time() - philo->table->start_time;
-	printf("%ld %d %s\n" , gct, philo->id, str);
-
-	pthread_mutex_unlock(&locker);
-	pthread_mutex_destroy(&locker);
-}
 
 size_t	get_current_time(void)
 {
@@ -46,12 +29,6 @@ int	ft_usleep(size_t milliseconds)
 	while ((get_current_time() - start) < milliseconds)
 		usleep(100);
 	return (0);
-}
-
-void	free_all(t_philo *philo)
-{
-		pthread_mutex_destroy(&philo->table->read);
-		pthread_mutex_destroy(&philo->table->write);	// free(philo->table);
 }
 
 int ft_atol(char *s)

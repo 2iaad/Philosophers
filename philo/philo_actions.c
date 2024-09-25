@@ -6,12 +6,11 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:56:27 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/24 17:00:24 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/25 16:08:49 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-#include <pthread.h>
 
 /*
 
@@ -19,28 +18,36 @@ ps: 1 milliseconds ===== 1000 microseconds //// ---> usleep(x * 1000);
 
 */
 
-void    eat(t_philo *philo)
+bool    eat(t_philo *philo)
 {
+	if (philo->id % 2 == 0)
+		usleep(1000);
+	
+	if (philo->meals_eaten == philo->table->n_meals)
+		return (false);
+
 	forks_lock(philo);
 
-	if (philo->id %2 == 0)
-		usleep(100);
-	pthread_mutex_lock(&philo->table->write);
+	pthread_mutex_lock(&philo->table->last_meal_m);
 	philo->last_meal = get_current_time();
-	pthread_mutex_unlock(&philo->table->write);
-	// unlock
+	pthread_mutex_unlock(&philo->table->last_meal_m);
+
 	print(philo, "is eating");
 	ft_usleep(philo->table->time_to_eat);
-	pthread_mutex_lock(&philo->table->write);
+	pthread_mutex_lock(&philo->table->n_meals_m);
 	philo->meals_eaten++;
-	pthread_mutex_unlock(&philo->table->write);
+	pthread_mutex_unlock(&philo->table->n_meals_m);
 
 	forks_unlock(philo);
+	return (true);
 }
 
-void    to_sleep(t_philo *philo)
+bool    to_sleep(t_philo *philo)
 {
+	if (philo->meals_eaten == philo->table->n_meals)
+		return (false);
     print(philo, "is sleeping");
     ft_usleep(philo->table->time_to_sleep);
+	return (true);
 }
 

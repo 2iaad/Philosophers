@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/24 16:53:19 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:38:54 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ typedef struct s_table
     int				time_to_sleep; // The time a philosopher will spend sleeping
     int				n_meals;
 	bool			death_flag;
-	pthread_mutex_t read;
-	pthread_mutex_t write;
+	pthread_mutex_t print;
+	pthread_mutex_t last_meal_m;
+	pthread_mutex_t n_meals_m;
+	pthread_mutex_t death_m;
 	pthread_mutex_t	*forks;
 }		t_table;
 
@@ -53,9 +55,8 @@ int     ft_atol(char *s);
 void	print(t_philo *philo, char *str);
 size_t	get_current_time(void);
 int		ft_usleep(size_t milliseconds);
-void	free_all(t_philo *philo);
 
-void	mutex_init(t_philo *philo);
+void	assign_forks(t_philo *philos);
 void	forks_lock(t_philo *philo);
 void	forks_unlock(t_philo *philo);
 void	mutex_destroy(t_philo *philo);
@@ -67,8 +68,7 @@ void    create_philo(t_philo *philo);
 /*         ACTIONS           */
 
 void    die(t_table *table);
-void    eat(t_philo *philo);
-void    to_sleep(t_philo *philo);
-void    think(t_table *table);
+bool    eat(t_philo *philo);
+bool    to_sleep(t_philo *philo);
 
 # endif

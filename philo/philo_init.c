@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/24 16:54:38 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:53:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,12 @@ void	assign_forks(t_philo *philos)
 
 	i = 0;
 	philos->table->forks = malloc(sizeof(pthread_mutex_t) * philos->table->n_philos);
-	mutex_init(philos);
+	while (i < philos->table->n_philos)
+	{
+		pthread_mutex_init(&philos->table->forks[i], NULL);
+		i++;
+	}
+	i = 0;
 	while (i < philos->table->n_philos)
 	{
 		philos[i].r_fork = &philos->table->forks[philos[i].id - 1]; // id - 1 bach philo 1 ykon ando fork 0
@@ -38,11 +43,16 @@ void	init_table(t_table *table, int ac, char **av)
 	table->time_to_sleep = ft_atol(av[4]);
 	if (ac == 6)
 		table->n_meals = ft_atol(av[5]);
-	pthread_mutex_init(&table->read,NULL);
-	pthread_mutex_init(&table->write,NULL);
+	else
+		table->n_meals = -1;
 	if (table->n_philos <= 0 && table->n_philos > 200 || table->time_to_die < 0
 	|| table->time_to_eat < 0 || table->time_to_sleep < 0)
 		return ((void)write(2, "Invalide input\n", 26));
+
+	pthread_mutex_init(&table->print,NULL);
+	pthread_mutex_init(&table->last_meal_m, NULL);
+	pthread_mutex_init(&table->n_meals_m, NULL);
+	pthread_mutex_init(&table->death_m,NULL);
 }
 
 void	init_data(int ac, char **av, t_philo **philos)
@@ -53,7 +63,7 @@ void	init_data(int ac, char **av, t_philo **philos)
 	i = 0;
 	table = malloc (sizeof(t_table));
 	init_table(table, ac, av);
-	*philos = malloc(sizeof(t_philo) * (table->n_philos + 1));
+	*philos = malloc(sizeof(t_philo) * (table->n_philos));
 	while (i < table->n_philos)
 	{
 		(*philos)[i].id = i + 1;
@@ -62,6 +72,5 @@ void	init_data(int ac, char **av, t_philo **philos)
 		(*philos)[i].table = table;
 		i++;
 	}
-	(*philos)[i].id = 1337;
 	assign_forks(*philos);
 }
