@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/26 09:47:48 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/28 00:09:33 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,26 @@
 # include <time.h>
 # include <sys/time.h>
 # include <stdio.h>
-# include <pthread.h> // contain all functions that control threads and mutexes
+# include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
+
+// data race in this case --> ./philo 7 120 60 60
+// hang in this case --> ./philo 2 810 200 200 2
+// philo kaymout fhad lcase ./philo 4 410 200 200 | grep died
+// #if __STDC_VERSION__ < 201112L ||  __STDC_NO_ATOMICS__ == 1
+
+// #error "atomics not supported!"
+
+// #endif
 
 typedef struct s_philo
 {
 	pthread_t		th;
 	int				id;
 	int				meals_eaten;
-	size_t			last_meal;
+	_Atomic long			last_meal;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	struct s_table	*table;
@@ -35,18 +44,15 @@ typedef struct s_philo
 typedef struct s_table
 {
 	pthread_t		guard;
-	size_t			start_time;
-	int				n_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				n_meals;
-	bool			death_flag;
-	pthread_mutex_t	print;
-	pthread_mutex_t	last_meal_m;
-	pthread_mutex_t	n_meals_m;
-	pthread_mutex_t	death_m;
+	_Atomic long			start_time;
+	_Atomic long			n_philos;
+	_Atomic long	time_to_die;
+	_Atomic long	time_to_eat;
+	_Atomic long	time_to_sleep;
+	_Atomic long	n_meals;
+	_Atomic bool	death_flag;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	print;
 }		t_table;
 
 int		ft_atol(char *s);

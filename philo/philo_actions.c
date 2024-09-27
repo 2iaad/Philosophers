@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 16:56:27 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/25 16:26:17 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/28 00:11:33 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,17 @@ ps: 1 milliseconds ===== 1000 microseconds //// ---> usleep(x * 1000);
 bool    eat(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
-		usleep(1000);
-	
-	if (philo->meals_eaten == philo->table->n_meals)
-		return (false);
+		usleep(700);
 
 	forks_lock(philo);
 
-	pthread_mutex_lock(&philo->table->last_meal_m);
-	philo->last_meal = get_current_time();
-	pthread_mutex_unlock(&philo->table->last_meal_m);
-	if (philo->table->n_philos == 1)
-		return 0;
 	print(philo, "is eating");
+	philo->last_meal = get_current_time();
 	ft_usleep(philo->table->time_to_eat);
-	pthread_mutex_lock(&philo->table->n_meals_m);
+
 	philo->meals_eaten++;
-	pthread_mutex_unlock(&philo->table->n_meals_m);
+	if (philo->meals_eaten == philo->table->n_meals)
+		return (forks_unlock(philo), false);
 
 	forks_unlock(philo);
 	return (true);

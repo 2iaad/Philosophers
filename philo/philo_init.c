@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/25 15:53:04 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:56:36 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	assign_forks(t_philo *philos)
 	while (i < philos->table->n_philos)
 	{
 		philos[i].r_fork = &philos->table->forks[philos[i].id - 1]; // id - 1 bach philo 1 ykon ando fork 0
-		philos[i].l_fork = &(philos->table->forks[((philos[i].id - 1) + 1) 
+		philos[i].l_fork = &(philos->table->forks[((philos[i].id - 1) + 1)
 			% philos->table->n_philos]); // (position deyal philo + 1) % 3adad d philos
 		i++;
 	}
@@ -50,9 +50,6 @@ void	init_table(t_table *table, int ac, char **av)
 		return ((void)write(2, "Invalide input\n", 26));
 
 	pthread_mutex_init(&table->print,NULL);
-	pthread_mutex_init(&table->last_meal_m, NULL);
-	pthread_mutex_init(&table->n_meals_m, NULL);
-	pthread_mutex_init(&table->death_m,NULL);
 }
 
 void	init_data(int ac, char **av, t_philo **philos)
