@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/27 22:39:13 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:10:10 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void    *death_checker(void	*philo)
 
 	i = 0;
 	tmp = (t_philo *)philo;
+	usleep(200);
 	while (1)
 	{
 		i = 0;
