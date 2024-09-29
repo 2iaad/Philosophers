@@ -6,11 +6,12 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/25 16:12:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:22:15 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <pthread.h>
 
 void    *death_checker(void	*philo)
 {
@@ -49,14 +50,22 @@ void	*f(void *philo)
     t_philo *ptr;
 
 	ptr = (t_philo *)philo;
+
+	if (ptr->id % 2 == 0)
+		usleep(800);
+
+	pthread_mutex_lock(&ptr->table->death_m);
 	while (!ptr->table->death_flag)
 	{
+		pthread_mutex_unlock(&ptr->table->death_m);
 		if (!eat(ptr))
 			return (NULL);
 		if (!to_sleep(ptr))
 			return (NULL);
 		print(ptr, "is thinking");
+		pthread_mutex_lock(&ptr->table->death_m);
 	}
+	pthread_mutex_unlock(&ptr->table->death_m);
     return (NULL);
 }
 
@@ -74,7 +83,7 @@ void    create_philo(t_philo *philo)
 	pthread_create(&philo->table->guard, NULL, &death_checker, philo);
     while (i < philo->table->n_philos)
     {
-        pthread_join(philo[i].th, NULL);
+        pthread_detach(philo[i].th);
         i++;
     }
 	pthread_join(philo->table->guard, NULL);
