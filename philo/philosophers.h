@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/26 09:47:48 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:12:29 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_philo
 	pthread_t		th;
 	int				id;
 	int				meals_eaten;
-	size_t			last_meal;
+	long			last_meal;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	struct s_table	*table;
@@ -35,15 +35,18 @@ typedef struct s_philo
 typedef struct s_table
 {
 	pthread_t		guard;
-	size_t			start_time;
-	int				n_philos;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				n_meals;
+	long			start_time;
+	long			n_philos;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			n_meals;
 	bool			death_flag;
 	pthread_mutex_t	print;
+	pthread_mutex_t	time_to_eat_m;
+	pthread_mutex_t	meals_eaten_m;
 	pthread_mutex_t	last_meal_m;
+	pthread_mutex_t	time_to_sleep_m;
 	pthread_mutex_t	n_meals_m;
 	pthread_mutex_t	death_m;
 	pthread_mutex_t	*forks;
@@ -51,8 +54,10 @@ typedef struct s_table
 
 int		ft_atol(char *s);
 void	print(t_philo *philo, char *str);
-size_t	get_current_time(void);
-int		ft_usleep(size_t milliseconds);
+long	get_current_time(void);
+int		ft_usleep(long milliseconds);
+void	*get(long	var, pthread_mutex_t *lock);
+void	set(long	var, long new_value, pthread_mutex_t *lock);
 
 void	assign_forks(t_philo *philos);
 void	forks_lock(t_philo *philo);

@@ -6,13 +6,13 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:56:50 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/25 12:17:22 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:12:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-size_t	get_current_time(void)
+long	get_current_time(void)
 {
 	struct timeval	time;
 
@@ -21,9 +21,9 @@ size_t	get_current_time(void)
 	return ((time.tv_sec * 1000 )+ (time.tv_usec / 1000));
 }
 
-int	ft_usleep(size_t milliseconds)
+int	ft_usleep(long milliseconds)
 {
-	size_t	start;
+	long	start;
 
 	start = get_current_time();
 	while ((get_current_time() - start) < milliseconds)

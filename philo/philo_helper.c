@@ -6,20 +6,18 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/29 19:20:08 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:27:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "philosophers.h"
-#include <pthread.h>
 
 void	forks_lock(t_philo *philo)
 {
-	if (philo->table->n_philos != 1)
-	{
-		pthread_mutex_lock(philo->r_fork);
-		print(philo, "has taken a fork");
-	}
+
+	pthread_mutex_lock(philo->r_fork);
+	print(philo, "has taken a fork");
+
 	pthread_mutex_lock(philo->l_fork);
 	print(philo, "has taken a fork");
 }
@@ -48,24 +46,28 @@ void	mutex_destroy(t_philo *philo)
 
 void	print(t_philo *philo, char *str)
 {
-	size_t gct;
-
-
-	// pthread_mutex_lock(&philo->table->death_m);
-	// pthread_mutex_lock(&philo->table->n_meals_m);
-	// if (philo->table->death_flag || philo->meals_eaten == philo->table->n_meals)
-	// {
-	// 	pthread_mutex_unlock(&philo->table->n_meals_m);
-	// 	pthread_mutex_unlock(&philo->table->death_m);
-	// 	return ;
-	// }
-	// pthread_mutex_unlock(&philo->table->n_meals_m);
-	// pthread_mutex_unlock(&philo->table->death_m);
-
+	long gct;
 
 	gct = get_current_time() - philo->table->start_time;
 	pthread_mutex_lock(&philo->table->print);
 	printf("%ld %d %s\n" , gct, philo->id, str);
 	pthread_mutex_unlock(&philo->table->print);
+}
 
+void	*get(long	var, pthread_mutex_t *lock)
+{
+	long	value;
+
+	pthread_mutex_lock(lock);
+	value = var;
+	pthread_mutex_unlock(lock);
+
+	return ((void *)value);
+}
+
+void	set(long	var, long new_value, pthread_mutex_t *lock)
+{
+	pthread_mutex_lock(lock);
+	var = new_value;
+	pthread_mutex_unlock(lock);
 }
