@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 15:44:30 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:32:22 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_philo
 {
 	pthread_t		th;
 	long			id;
-	long			meals_eaten;
-	_Atomic long			last_meal;
+	_Atomic long	meals_eaten;
+	_Atomic long	last_meal;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	struct s_table	*table;
@@ -43,8 +43,8 @@ typedef struct s_table
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
-	long			n_meals;
-	_Atomic long			death_flag;
+	_Atomic long	n_meals;
+	_Atomic long	death_flag;
 	pthread_mutex_t	print;
 	pthread_mutex_t	start_time_m;
 	pthread_mutex_t	meals_eaten_m;

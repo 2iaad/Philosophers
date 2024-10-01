@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 17:56:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:37:12 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	print(t_philo *philo, char *str)
 {
-	long gct;
+	_Atomic long gct;
 
 	if (philo->table->death_flag)
 		return ;
-	gct = get_current_time() - (long)get(philo->table->start_time, &philo->table->start_time_m);
 	pthread_mutex_lock(&philo->table->print);
+	gct = get_current_time() - (long)get(philo->table->start_time, &philo->table->start_time_m);
 	if (philo->table->death_flag)
 	{
 		pthread_mutex_unlock(&philo->table->print);
@@ -34,14 +34,17 @@ void	print(t_philo *philo, char *str)
 void	*monitor(void *tmp)
 {
 	int		i;
-	t_philo *philo;
+	t_philo	*philo;
 
 	i = 0;
 	philo = (t_philo *)tmp;
+	ft_usleep(10);
 	while (i < philo->table->n_philos)
 	{
-		if (get_current_time() - philo[i].last_meal > philo->table->time_to_die)
+		if (get_current_time() - philo[i].last_meal >= philo->table->time_to_die)
 		{
+			if (philo->meals_eaten == philo->table->n_meals)
+				return (NULL);
 			print(&philo[i], "died");
 			return (NULL);
 		}
@@ -61,9 +64,10 @@ bool	cycle(t_philo *philo)
 	print(philo, "is eating");
 	philo->last_meal = get_current_time();
 	ft_usleep(philo->table->time_to_eat);
-	if (philo->table->n_meals != -1) // ila kan arg lakhar kayn
-		set(&philo->meals_eaten, philo->meals_eaten + 1, &philo->table->meals_eaten_m);
-	if (philo->meals_eaten ==philo->table->n_meals)
+	// if (philo->table->n_meals != -1) // ila kan arg lakhar kayn
+	// 	set(&philo->meals_eaten, philo->meals_eaten + 1, &philo->table->meals_eaten_m);
+	philo->meals_eaten++;
+	if (philo->meals_eaten == philo->table->n_meals)
 		return (forks_unlock(philo), false);
 	forks_unlock(philo);
 
