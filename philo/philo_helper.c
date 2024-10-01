@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/30 12:27:22 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 00:54:20 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	print(t_philo *philo, char *str)
 
 	gct = get_current_time() - philo->table->start_time;
 	pthread_mutex_lock(&philo->table->print);
-	printf("%ld %d %s\n" , gct, philo->id, str);
+	printf("%ld %ld %s\n" , gct, philo->id, str);
 	pthread_mutex_unlock(&philo->table->print);
 }
 
@@ -65,9 +65,9 @@ void	*get(long	var, pthread_mutex_t *lock)
 	return ((void *)value);
 }
 
-void	set(long	var, long new_value, pthread_mutex_t *lock)
+void	set(long	*var, long new_value, pthread_mutex_t *lock)
 {
 	pthread_mutex_lock(lock);
-	var = new_value;
+	*var = new_value;
 	pthread_mutex_unlock(lock);
 }

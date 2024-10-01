@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/30 19:15:58 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 01:11:52 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ void	*monitor(void *tmp)
 
 	i = 0;
 	philo = (t_philo *)tmp;
+	usleep(500);
 	while (i < philo->table->n_philos)
 	{
 		if (get_current_time() - (long)get(philo[i].last_meal, &philo->table->last_meal_m) > philo->table->time_to_die)
 		{
+			printf("--->%ld\n", get_current_time() - (long)get(philo[i].last_meal, &philo->table->last_meal_m));
 			print(philo, "died");
-			set(philo->table->death_flag, true, &philo->table->death_m);
+			set(&philo->table->death_flag, true, &philo->table->death_m);
 			return (NULL);
 		}
 		i++;
 		if (i == philo->table->n_philos)
 			i = 0;
 	}
-	// printf("--->%ld\n", get_current_time() - (long)get(philo[i].last_meal, &philo->table->last_meal_m));
-	puts("\n\n\n\n\n\n\nsalam\n\n\n\n\n\n");
 	return (NULL);
 }
 
@@ -43,15 +43,16 @@ void	*routine(void *tmp)
 	philo = (t_philo *)tmp;
 	if (!(philo->id % 2))
 		usleep(philo->table->time_to_eat / 2);
-	while (1)
+	while (!get(philo->table->death_flag, &philo->table->death_m))
 	{
 		/*				EATING				*/
 		forks_lock(philo);
 
 		print(philo, "is eating");
+		set(&philo->last_meal, get_current_time(), &philo->table->last_meal_m);
 		ft_usleep((long)get(philo->table->time_to_eat, &philo->table->time_to_eat_m));
-		if ((long)get(philo->table->n_meals, &philo->table->n_meals_m) != -1)
-			set(philo->meals_eaten, philo->meals_eaten + 1, &philo->table->meals_eaten_m);
+		// if ((long)get(philo->table->n_meals, &philo->table->n_meals_m) != -1)
+		// 	set(&philo->meals_eaten, philo->meals_eaten + 1, &philo->table->meals_eaten_m);
 		
 		forks_unlock(philo);
 		
