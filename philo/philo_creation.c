@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 04:42:31 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:44:34 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	print(t_philo *philo, char *str)
 {
 	long gct;
 
-	if ((long)get(philo->table->death_flag, &philo->table->death_m))
+	if (philo->table->death_flag)
 		return ;
-	gct = get_current_time() - philo->table->start_time;
+	gct = get_current_time() - (long)get(philo->table->start_time, &philo->table->start_time_m);
 	pthread_mutex_lock(&philo->table->print);
 	printf("%ld %ld %s\n" , gct, philo->id, str);
 	pthread_mutex_unlock(&philo->table->print);
@@ -33,10 +33,11 @@ void	*monitor(void *tmp)
 	philo = (t_philo *)tmp;
 	while (i < philo->table->n_philos)
 	{
-		if (get_current_time() - (long)get(philo[i].last_meal, &philo->table->last_meal_m) > philo->table->time_to_die)
+		if (get_current_time() - philo[i].last_meal > philo->table->time_to_die)
 		{
 			print(philo, "died");
-			set(&philo->table->death_flag, true, &philo->table->death_m);
+			philo->table->death_flag = true;
+			// set(&philo->table->death_flag, true, &philo->table->death_m);
 			return (NULL);
 		}
 		i++;
@@ -51,16 +52,16 @@ bool	cycle(t_philo *philo)
 	forks_lock(philo);
 
 	print(philo, "is eating");
-	set(&philo->last_meal, get_current_time(), &philo->table->last_meal_m);
-	ft_usleep((long)get(philo->table->time_to_eat, &philo->table->time_to_eat_m));
-	if ((long)get(philo->table->n_meals, &philo->table->n_meals_m) != -1) // ila kan arg lakhar kayn
+	philo->last_meal = get_current_time();
+	ft_usleep(philo->table->time_to_eat);
+	if (philo->table->n_meals != -1) // ila kan arg lakhar kayn
 		set(&philo->meals_eaten, philo->meals_eaten + 1, &philo->table->meals_eaten_m);
-	if (philo->meals_eaten == (long)get(philo->table->n_meals, &philo->table->meals_eaten_m))
+	if (philo->meals_eaten ==philo->table->n_meals)
 		return (forks_unlock(philo), false);
 	forks_unlock(philo);
 
 	print(philo, "is sleeping");
-		ft_usleep((long)get(philo->table->time_to_sleep, &philo->table->time_to_sleep_m));
+		ft_usleep(philo->table->time_to_sleep);
 
 	print(philo, "is thinking");
 	return (true);

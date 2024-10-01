@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 00:54:00 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:44:30 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,15 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+// ./philo 5 150 60 60
+
+
 typedef struct s_philo
 {
 	pthread_t		th;
 	long			id;
 	long			meals_eaten;
-	long			last_meal;
+	_Atomic long			last_meal;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	struct s_table	*table;
@@ -41,13 +44,11 @@ typedef struct s_table
 	long			time_to_eat;
 	long			time_to_sleep;
 	long			n_meals;
-	long			death_flag;
+	_Atomic long			death_flag;
 	pthread_mutex_t	print;
-	pthread_mutex_t	time_to_eat_m;
+	pthread_mutex_t	start_time_m;
 	pthread_mutex_t	meals_eaten_m;
 	pthread_mutex_t	last_meal_m;
-	pthread_mutex_t	time_to_sleep_m;
-	pthread_mutex_t	n_meals_m;
 	pthread_mutex_t	death_m;
 	pthread_mutex_t	*forks;
 }		t_table;

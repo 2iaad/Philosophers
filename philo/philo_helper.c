@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 02:51:47 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:27:02 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ void	mutex_destroy(t_philo *philo)
 		i++;
 	}
 	pthread_mutex_destroy(&philo->table->print);
-	pthread_mutex_destroy(&philo->table->time_to_eat_m);
+	pthread_mutex_destroy(&philo->table->start_time_m);
 	pthread_mutex_destroy(&philo->table->meals_eaten_m);
 	pthread_mutex_destroy(&philo->table->last_meal_m);
-	pthread_mutex_destroy(&philo->table->time_to_sleep_m);
-	pthread_mutex_destroy(&philo->table->n_meals_m);
 	pthread_mutex_destroy(&philo->table->death_m);
 }
 

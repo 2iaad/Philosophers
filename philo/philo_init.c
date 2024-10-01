@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/30 12:35:06 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:27:04 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	assign_forks(t_philo *philos)
 
 void	init_table(t_table *table, int ac, char **av)
 {	
-	table->start_time = get_current_time();
+	set(&table->start_time, get_current_time(), &table->start_time_m);
 	table->n_philos = ft_atol(av[1]);
 	table->death_flag = false;
 	table->time_to_die = ft_atol(av[2]);
@@ -50,11 +50,9 @@ void	init_table(t_table *table, int ac, char **av)
 		return ((void)write(2, "Invalide input\n", 26));
 
 	pthread_mutex_init(&table->print,NULL);
-	pthread_mutex_init(&table->time_to_eat_m, NULL);
-	pthread_mutex_init(&table->time_to_sleep_m, NULL);
+	pthread_mutex_init(&table->start_time_m,NULL);
 	pthread_mutex_init(&table->meals_eaten_m, NULL);
 	pthread_mutex_init(&table->last_meal_m, NULL);
-	pthread_mutex_init(&table->n_meals_m, NULL);
 	pthread_mutex_init(&table->death_m,NULL);
 }
 
