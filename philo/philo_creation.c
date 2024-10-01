@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 19:37:12 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 23:17:25 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	*monitor(void *tmp)
 
 bool	cycle(t_philo *philo)
 {
-	forks_lock(philo);
+	if (!forks_lock(philo))
+		return (false);
 
 	if (philo->table->death_flag)
 		return (forks_unlock(philo), false);

@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:07:46 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 19:34:24 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 23:15:19 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ bool 	numbers_check(char **av)
 
 bool	valid_args_check(char **av)
 {
-	if (ft_atol(av[0]) > 200 || ft_atol(av[0]) <= 0)
+	if (ft_atol(av[0]) > 200 || ft_atol(av[0]) <= 0 
+	|| ft_atol(av[1]) < 60 
+	|| ft_atol(av[2]) < 60 
+	|| ft_atol(av[3]) < 60)
 		return (false);
 	if (av[4] && ft_atol(av[4]) == 0)
 		return (false);

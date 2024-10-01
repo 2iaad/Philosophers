@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 19:36:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 23:15:23 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	assign_forks(t_philo *philos)
 	}
 }
 
-void	init_table(t_table *table, int ac, char **av)
+bool	init_table(t_table *table, int ac, char **av)
 {	
 	pthread_mutex_init(&table->start_time_m,NULL);
 	set(&table->start_time, get_current_time(), &table->start_time_m);
@@ -46,14 +46,12 @@ void	init_table(t_table *table, int ac, char **av)
 		table->n_meals = ft_atol(av[5]);
 	else
 		table->n_meals = -1;
-	if (table->n_philos <= 0 && table->n_philos > 200 || table->time_to_die < 60
-	|| table->time_to_eat < 60 || table->time_to_sleep < 60)
-		return ((void)write(2, "Invalide input\n", 26));
 
 	pthread_mutex_init(&table->print,NULL);
 	pthread_mutex_init(&table->meals_eaten_m, NULL);
 	pthread_mutex_init(&table->last_meal_m, NULL);
 	pthread_mutex_init(&table->death_m,NULL);
+	return (true);
 }
 
 void	init_data(int ac, char **av, t_philo **philos)

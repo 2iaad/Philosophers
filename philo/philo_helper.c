@@ -6,20 +6,23 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 18:46:44 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 23:17:39 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "philosophers.h"
 
-void	forks_lock(t_philo *philo)
+bool	forks_lock(t_philo *philo)
 {
 	if (philo->table->death_flag)
-		return ;
+		return (false);
 	pthread_mutex_lock(philo->r_fork);
 	print(philo, "has taken a fork");
+	if (philo->table->n_philos == 1)
+		return (false);
 	pthread_mutex_lock(philo->l_fork);
 	print(philo, "has taken a fork");
+	return (true);
 }
 
 void	forks_unlock(t_philo *philo)
