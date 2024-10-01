@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 04:24:53 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 04:42:31 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,8 @@
 void	print(t_philo *philo, char *str)
 {
 	long gct;
-	long death_flag;
-	long meals_eaten;
 
-	death_flag = (long)get(philo->table->death_flag, &philo->table->death_m);
-	meals_eaten = (long)get(philo->meals_eaten, &philo->table->meals_eaten_m);
-	if (death_flag || meals_eaten == philo->table->n_meals)
+	if ((long)get(philo->table->death_flag, &philo->table->death_m))
 		return ;
 	gct = get_current_time() - philo->table->start_time;
 	pthread_mutex_lock(&philo->table->print);
@@ -52,25 +48,19 @@ void	*monitor(void *tmp)
 
 bool	cycle(t_philo *philo)
 {
-	int 	flag;
-
-	flag = 0;
-	if ((long)get(philo->table->n_meals, &philo->table->n_meals_m) != -1)
-		flag = 1;
-
 	forks_lock(philo);
 
 	print(philo, "is eating");
 	set(&philo->last_meal, get_current_time(), &philo->table->last_meal_m);
 	ft_usleep((long)get(philo->table->time_to_eat, &philo->table->time_to_eat_m));
-	if (flag) // ila kan arg lakhar kayn
+	if ((long)get(philo->table->n_meals, &philo->table->n_meals_m) != -1) // ila kan arg lakhar kayn
 		set(&philo->meals_eaten, philo->meals_eaten + 1, &philo->table->meals_eaten_m);
 	if (philo->meals_eaten == (long)get(philo->table->n_meals, &philo->table->meals_eaten_m))
 		return (forks_unlock(philo), false);
 	forks_unlock(philo);
 
 	print(philo, "is sleeping");
-	ft_usleep((long)get(philo->table->time_to_sleep, &philo->table->time_to_sleep_m));
+		ft_usleep((long)get(philo->table->time_to_sleep, &philo->table->time_to_sleep_m));
 
 	print(philo, "is thinking");
 	return (true);
