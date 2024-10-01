@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 00:54:20 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 02:51:47 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,12 @@ void	mutex_destroy(t_philo *philo)
 		i++;
 	}
 	pthread_mutex_destroy(&philo->table->print);
+	pthread_mutex_destroy(&philo->table->time_to_eat_m);
+	pthread_mutex_destroy(&philo->table->meals_eaten_m);
 	pthread_mutex_destroy(&philo->table->last_meal_m);
+	pthread_mutex_destroy(&philo->table->time_to_sleep_m);
 	pthread_mutex_destroy(&philo->table->n_meals_m);
 	pthread_mutex_destroy(&philo->table->death_m);
-}
-
-void	print(t_philo *philo, char *str)
-{
-	long gct;
-
-	gct = get_current_time() - philo->table->start_time;
-	pthread_mutex_lock(&philo->table->print);
-	printf("%ld %ld %s\n" , gct, philo->id, str);
-	pthread_mutex_unlock(&philo->table->print);
 }
 
 void	*get(long	var, pthread_mutex_t *lock)
