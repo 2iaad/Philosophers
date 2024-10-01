@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:07:46 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/09/23 10:57:51 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:51:25 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,23 @@ bool 	numbers_check(char **av)
 	return (true);
 }
 
+bool	valid_args_check(char **av)
+{
+	if (ft_atol(av[0]) > 200 || ft_atol(av[0]) == 1)
+		return (false);
+	if (av[4] && ft_atol(av[4]) == 0)
+		return (false);
+	return (true);
+}
+
 void    parsing(int ac, char **av)
 {
 
 	if (!numbers_check(av + 1))
 	{
-		write(2, "PARSER\n", 7);
+		write(2, "Invalide argument.\n", 19);
 		exit(1);
 	}
-	else
-		printf("NICE !!\n");
+	if (!valid_args_check(av + 1))
+		exit(0);
 }
