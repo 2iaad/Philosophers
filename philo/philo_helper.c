@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 00:37:40 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 15:27:02 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:38:02 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	forks_lock(t_philo *philo)
 {
-
+	if (philo->table->death_flag)
+		return ;
 	pthread_mutex_lock(philo->r_fork);
 	print(philo, "has taken a fork");
 

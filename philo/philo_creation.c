@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 12:08:26 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 15:44:34 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:56:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,14 @@ void	print(t_philo *philo, char *str)
 		return ;
 	gct = get_current_time() - (long)get(philo->table->start_time, &philo->table->start_time_m);
 	pthread_mutex_lock(&philo->table->print);
+	if (philo->table->death_flag)
+	{
+		pthread_mutex_unlock(&philo->table->print);
+		return ;
+	}
 	printf("%ld %ld %s\n" , gct, philo->id, str);
+	if (str[0] == 'd')
+		philo->table->death_flag = true;
 	pthread_mutex_unlock(&philo->table->print);
 }
 
@@ -35,9 +42,7 @@ void	*monitor(void *tmp)
 	{
 		if (get_current_time() - philo[i].last_meal > philo->table->time_to_die)
 		{
-			print(philo, "died");
-			philo->table->death_flag = true;
-			// set(&philo->table->death_flag, true, &philo->table->death_m);
+			print(&philo[i], "died");
 			return (NULL);
 		}
 		i++;
@@ -51,6 +56,8 @@ bool	cycle(t_philo *philo)
 {
 	forks_lock(philo);
 
+	if (philo->table->death_flag)
+		return (forks_unlock(philo), false);
 	print(philo, "is eating");
 	philo->last_meal = get_current_time();
 	ft_usleep(philo->table->time_to_eat);
@@ -60,9 +67,13 @@ bool	cycle(t_philo *philo)
 		return (forks_unlock(philo), false);
 	forks_unlock(philo);
 
+	if (philo->table->death_flag)
+		return (false);
 	print(philo, "is sleeping");
 		ft_usleep(philo->table->time_to_sleep);
 
+	if (philo->table->death_flag)
+		return (false);
 	print(philo, "is thinking");
 	return (true);
 }
@@ -73,7 +84,7 @@ void	*routine(void *tmp)
 
 	(1) && (philo = (t_philo *)tmp);
 	if (!(philo->id % 2))
-		usleep(philo->table->time_to_eat / 2);
+		usleep(200);
 	while (!get(philo->table->death_flag, &philo->table->death_m))
 	{
 		if (!cycle(philo))
