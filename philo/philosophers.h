@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 07:00:11 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 23:16:26 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:26:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 # include <time.h>
 # include <sys/time.h>
 # include <stdio.h>
-# include <pthread.h> // contain all functions that control threads and mutexes	
+# include <pthread.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
 
 // ./philo 5 150 60 60
 // ./philo 2 200 200 200 1
-
 
 typedef struct s_philo
 {
@@ -67,7 +66,7 @@ void	forks_unlock(t_philo *philo);
 void	mutex_destroy(t_philo *philo);
 
 void	parsing(int ac, char **av);
-void	init_data(int ac, char **av, t_philo **philo);
+bool	init_data(int ac, char **av, t_philo **philo);
 void	create_philo(t_philo *philo);
 
 /*         ACTIONS           */

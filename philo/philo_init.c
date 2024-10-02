@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/01 23:15:23 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/02 10:25:59 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,19 @@ bool	init_table(t_table *table, int ac, char **av)
 	return (true);
 }
 
-void	init_data(int ac, char **av, t_philo **philos)
+bool	init_data(int ac, char **av, t_philo **philos)
 {
 	int i;
 	t_table *table;
 
 	i = 0;
 	table = malloc (sizeof(t_table));
+	if (!table)
+		return (false);
 	init_table(table, ac, av);
 	*philos = malloc(sizeof(t_philo) * (table->n_philos));
+	if (!*philos)
+		return (false);
 	while (i < table->n_philos)
 	{
 		(*philos)[i].id = i + 1;
@@ -72,4 +76,5 @@ void	init_data(int ac, char **av, t_philo **philos)
 		i++;
 	}
 	assign_forks(*philos);
+	return (true);
 }
