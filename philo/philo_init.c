@@ -6,7 +6,7 @@
 /*   By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 22:54:57 by zderfouf          #+#    #+#             */
-/*   Updated: 2024/10/02 10:25:59 by zderfouf         ###   ########.fr       */
+/*   Updated: 2024/10/02 11:52:41 by zderfouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	assign_forks(t_philo *philos)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	philos->table->forks = malloc(sizeof(pthread_mutex_t) * philos->table->n_philos);
+	philos->table->forks = malloc(sizeof(pthread_mutex_t)
+			* philos->table->n_philos);
 	while (i < philos->table->n_philos)
 	{
 		pthread_mutex_init(&philos->table->forks[i], NULL);
@@ -26,16 +27,16 @@ void	assign_forks(t_philo *philos)
 	i = 0;
 	while (i < philos->table->n_philos)
 	{
-		philos[i].r_fork = &philos->table->forks[philos[i].id - 1]; // id - 1 bach philo 1 ykon ando fork 0
-		philos[i].l_fork = &(philos->table->forks[((philos[i].id - 1) + 1) 
-			% philos->table->n_philos]); // (position deyal philo + 1) % 3adad d philos
+		philos[i].r_fork = &philos->table->forks[philos[i].id - 1];
+		philos[i].l_fork = &(philos->table->forks[((philos[i].id - 1) + 1)
+				% philos->table->n_philos]);
 		i++;
 	}
 }
 
 bool	init_table(t_table *table, int ac, char **av)
-{	
-	pthread_mutex_init(&table->start_time_m,NULL);
+{
+	pthread_mutex_init(&table->start_time_m, NULL);
 	set(&table->start_time, get_current_time(), &table->start_time_m);
 	table->n_philos = ft_atol(av[1]);
 	table->death_flag = false;
@@ -46,18 +47,17 @@ bool	init_table(t_table *table, int ac, char **av)
 		table->n_meals = ft_atol(av[5]);
 	else
 		table->n_meals = -1;
-
-	pthread_mutex_init(&table->print,NULL);
+	pthread_mutex_init(&table->print, NULL);
 	pthread_mutex_init(&table->meals_eaten_m, NULL);
 	pthread_mutex_init(&table->last_meal_m, NULL);
-	pthread_mutex_init(&table->death_m,NULL);
+	pthread_mutex_init(&table->death_m, NULL);
 	return (true);
 }
 
 bool	init_data(int ac, char **av, t_philo **philos)
 {
-	int i;
-	t_table *table;
+	int		i;
+	t_table	*table;
 
 	i = 0;
 	table = malloc (sizeof(t_table));

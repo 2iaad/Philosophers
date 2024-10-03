@@ -6,7 +6,7 @@
 #    By: zderfouf <zderfouf@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/26 09:50:22 by zderfouf          #+#    #+#              #
-#    Updated: 2024/10/01 19:12:35 by zderfouf         ###   ########.fr        #
+#    Updated: 2024/10/03 10:17:55 by zderfouf         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = cc
 
-FLAGS = -g  #-fsanitize=thread -g
+FLAGS = -Wall -Wextra -Werror
 
 RM = rm -rf
 
